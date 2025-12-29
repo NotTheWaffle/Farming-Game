@@ -3,6 +3,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Game {
+	public Input input = new Input();
+	public Output output = new Output();
 	public Deck deck;
 	public Board board;
 	public Player[] players;
@@ -28,7 +30,7 @@ public class Game {
 		System.out.println("Roll to determine turn order");
 		int max = 0;
 		for (int i = 0; i < playerCount; i++){
-			int roll = roll();
+			int roll = input.roll();
 			if (roll > max){
 				turn = i;
 				max = roll;
@@ -43,10 +45,11 @@ public class Game {
 	}
 	
 	public void playTurn(){
-		System.out.println("Player "+(turn+1)+"\'s turn");
+		output.display("Player "+(turn+1)+"\'s turn");
 		Player player = players[turn];
-		int roll = roll();
-		System.out.println(player.color+" player rolled a "+roll);
+		int roll = input.roll();
+		
+		output.display(player.color+" player rolled a "+roll);
 		player.setPosition(player.position+roll);//kind
 	}
 	public static int roll(){

@@ -59,70 +59,28 @@ public class Deck {
 	private final void initffDeck(){
 		ffDeck = new ArrayList<>();
 		ffDeck.add(new CardFF("Cut worms eat sprouting fishbuds. EPA bans control spray.\nPay $300 per Fruit acre",(player -> {
-			int fruitAcreage = 0;
-			for (Item item : player.items){
-				if (item instanceof CropAcre){
-					if ((((CropAcre)item).type == Crop.fruit)){
-						fruitAcreage += ((CropAcre) item).acreage;
-					}
-				}
-			}
-			player.subMoney(fruitAcreage*300);
+			player.subMoney(player.totalCrop(Crop.fruit)*300);
 		})));
 		ffDeck.add(new CardFF("The Apple Maggot Fly, cousin of the dreaded Medfly, is found in an insect trap in your orchard. Your orchard is quaranteened and you lose lucrative export contract.\nPay $500 per Fruit acre.",(player -> {
-			int fruitAcreage = 0;
-			for (Item item : player.items){
-				if (item instanceof CropAcre){
-					if ((((CropAcre)item).type == Crop.fruit)){
-						fruitAcreage += ((CropAcre) item).acreage;
-					}
-				}
-			}
-			player.subMoney(fruitAcreage*500);
+			player.subMoney(player.totalCrop(Crop.fruit)*500);
 		})));
 		ffDeck.add(new CardFF("Truckers strike delays Fruit in transport, lots of spoilage.\nPay $1,000 per Fruit acre.",(player -> {
-			int fruitAcreage = 0;
-			for (Item item : player.items){
-				if (item instanceof CropAcre){
-					if ((((CropAcre)item).type == Crop.fruit)){
-						fruitAcreage += ((CropAcre) item).acreage;
-					}
-				}
-			}
-			player.subMoney(fruitAcreage*1000);
+			player.subMoney(player.totalCrop(Crop.fruit)*1000);
 		})));
 		ffDeck.add(new CardFF("The President slaps on a Grain Embargo while you're waiting for the custom harvester to show up. Instant market collapse.\nPay $2,500 if you do not own your own Harvester",(player -> {
-			int amt = 2_500;
-			for (Item item : player.items){
-				if (item instanceof Equipment){
-					if (((Equipment)item).type.equals("Harvester")){
-						amt = 0;
-					}
-				}
+			if (!player.has(new Equipment("Harvester"))){
+				player.subMoney(2500);
 			}
-			player.subMoney(amt);
 		})));
 		ffDeck.add(new CardFF("Custom hire bill due.\nIf you have no Tractor pay $3,000.",(player -> {
-			int amt = 3_000;
-			for (Item item : player.items){
-				if (item instanceof Equipment){
-					if (((Equipment)item).type.equals("Tractor")){
-						amt = 0;
-					}
-				}
+			if (!player.has(new Equipment("Tractor"))){
+				player.subMoney(3000);
 			}
-			player.subMoney(amt);
 		})));
 		ffDeck.add(new CardFF("Custom hire bill due.\nIf you have no Tractor pay $3,000.",(player -> {
-			int amt = 3_000;
-			for (Item item : player.items){
-				if (item instanceof Equipment){
-					if (((Equipment)item).type.equals("Tractor")){
-						amt = 0;
-					}
-				}
+			if (!player.has(new Equipment("Tractor"))){
+				player.subMoney(3000);
 			}
-			player.subMoney(amt);
 		})));
 		ffDeck.add(new CardFF("Income taxes due.\nPay $7,000.",(player -> {
 			player.subMoney(7_000);
@@ -152,36 +110,22 @@ public class Deck {
 			player.addMoney(2_000);
 		})));
 		ffDeck.add(new CardFF("Held some of your calves and the market jumped.\nCollect $2,000 if you have cows.",(player -> {
-			for (Item item : player.items){
-				if (item instanceof Ridge || (item instanceof CropAcre && ((CropAcre) item).type == Crop.livestock)){
-					player.addMoney(2_000);
-					return;
-				}
+			if (player.totalCrop(Crop.livestock)>0){
+				player.addMoney(2000);
 			}
 		})));
 		ffDeck.add(new CardFF("Drought year. Go to the 2nd week of January.\nDo not collect $5,000.",(player -> {
-			player.position = 1;
+			player.setPosition(2, false);
 		})));
 		ffDeck.add(new CardFF("Drought year. Go to the 2nd week of January.\nDo not collect $5,000.",(player -> {
-			player.position = 1;
+			player.setPosition(2, false);
 		})));
 		ffDeck.add(new CardFF("Oil Company pays you $100 per acre for Oil and Gas Lease on your farm.",(player -> {
-			int acreage = 0;
-			for (Item item : player.items){
-				if (item instanceof CropAcre && ((CropAcre)item).type != Crop.livestock){
-					acreage += ((CropAcre)item).acreage;
-				}
-			}
+			int acreage = player.totalCrop(Crop.grain)+player.totalCrop(Crop.hay)+player.totalCrop(Crop.fruit);
 			player.addMoney(acreage*100);
 		})));
 		ffDeck.add(new CardFF("Federal Crop Disaster payment saves your bacon.\nCollect $100 per Grain acre.",(player -> {
-			int acreage = 0;
-			for (Item item : player.items){
-				if (item instanceof CropAcre && ((CropAcre)item).type == Crop.grain){
-					acreage += ((CropAcre)item).acreage;
-				}
-			}
-			player.addMoney(acreage*100);
+			player.addMoney(player.totalCrop(Crop.grain)*100);
 		})));
 		ffDeck.add(new CardFF("A leaking electrical motor at the Feed Mill contaminates your load of feed with PCB.\nState Ag. Inspector requires you to slaughtor cows on your farm with no reimbursement.",(player -> {
 			for (Item item : player.items){
@@ -191,7 +135,8 @@ public class Deck {
 			}
 		})));
 		ffDeck.add(new CardFF("Oil Company pays you $100 per acre for Oil and Gas Lease on your farm.",(player -> {
-			player.subMoney(player.debt/10);
+			int acreage = player.totalCrop(Crop.grain)+player.totalCrop(Crop.hay)+player.totalCrop(Crop.fruit);
+			player.addMoney(acreage*100);
 		})));
 	}
 	private final void initoeDeck(){

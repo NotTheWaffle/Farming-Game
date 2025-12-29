@@ -106,7 +106,8 @@ public class Player {
 	public void drawFF(){
 		game.deck.drawFF().apply(this);
 	}
-	public void setPosition(int position){
+	public void setPosition(int position, boolean kind){
+		
 		this.position = position;
 		game.board.board[position].apply(this);
 	}

@@ -1,5 +1,6 @@
 public enum Effect{
 	doubleHay,
 	doubleGrain,
-	garnished
+	garnished,
+	halfGrain
 }

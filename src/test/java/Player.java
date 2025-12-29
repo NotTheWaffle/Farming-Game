@@ -63,9 +63,11 @@ public class Player {
 	public int totalCows(){
 		int totalCows = 0;
 		for (Item item : items){
-			if (item instanceof Ridge ridge){
+			if (item instanceof Ridge){
+				Ridge ridge = (Ridge) item;
 				totalCows += ridge.capacity;
-			} else if (item instanceof CropAcre cropAcre){
+			} else if (item instanceof CropAcre){
+				CropAcre cropAcre = (CropAcre) item;
 				if (cropAcre.type == Crop.livestock){
 					totalCows += cropAcre.acreage;
 				}
@@ -79,7 +81,8 @@ public class Player {
 		}
 		int totalCrop = 0;
 		for (Item item : items){
-			if (item instanceof CropAcre cropAcre){
+			if (item instanceof CropAcre){
+				CropAcre cropAcre = (CropAcre) item;
 				if (cropAcre.type == crop){
 					totalCrop += cropAcre.acreage;
 				}
@@ -87,6 +90,9 @@ public class Player {
 		}
 		if (crop == Crop.grain && effects.contains(Effect.doubleGrain) || crop == Crop.hay && effects.contains(Effect.doubleHay)){
 			totalCrop *= 2;
+		}
+		if (crop == Crop.grain && effects.contains(Effect.halfGrain)){
+			totalCrop /= 2;
 		}
 		return totalCrop;
 	}
@@ -106,7 +112,10 @@ public class Player {
 	public void drawFF(){
 		game.deck.drawFF().apply(this);
 	}
-	public void setPosition(int position){
+	public void setPosition(int position, boolean kind){
+		if (kind && position < this.position){
+			addMoney(5000);
+		}
 		this.position = position;
 		game.board.board[position].apply(this);
 	}

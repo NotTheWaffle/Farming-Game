@@ -13,7 +13,7 @@ public class Board {
 		board[4] = new Tile("Beautiful Days!\nDouble all your Hay Harvests this year.", (player) -> player.effects.add(Effect.doubleHay));
 		board[5] = new Tile("Warm snap, you're in the fields 2 weeks early. COLLECT $1000", 1000);
 		board[6] = new Tile("Stuck in a muddy corral. Draw Farmer's Fate", drawFF);
-		board[7] = new Tile("Ground thaws. Start plowing early. Go directly to Spring planting.", (player) -> player.position = 14);
+		board[7] = new Tile("Ground thaws. Start plowing early. Go directly to Spring planting.", (player) -> {player.setPosition(14);});
 		board[8] = new Tile("Rainy day. Draw O.T.B.", drawOTB);
 		board[9] = new Tile("Becomes obvious your wheat has winter killed. PAY %2000 to replant.", (player) -> player.subMoney(2000));
 		board[10] = new Tile("Start plowing late. PAY $500", -500);

@@ -47,11 +47,7 @@ public class Game {
 		Player player = players[turn];
 		int roll = roll();
 		System.out.println(player.color+" player rolled a "+roll);
-		player.position += roll;
-		//TODO find board size
-		if (player.position > 40){
-			
-		}
+		player.setPosition(player.position+roll);//kind
 	}
 	public static int roll(){
 		return (int)(Math.random()*6)+1;

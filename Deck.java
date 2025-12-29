@@ -158,10 +158,10 @@ public class Deck {
 			}
 		})));
 		ffDeck.add(new CardFF("Drought year. Go to the 2nd week of January.\nDo not collect $5,000.",(player -> {
-			player.position = 1;
+			player.position = 2;
 		})));
 		ffDeck.add(new CardFF("Drought year. Go to the 2nd week of January.\nDo not collect $5,000.",(player -> {
-			player.position = 1;
+			player.position = 2;
 		})));
 		ffDeck.add(new CardFF("Oil Company pays you $100 per acre for Oil and Gas Lease on your farm.",(player -> {
 			int acreage = 0;

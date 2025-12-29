@@ -1,5 +1,7 @@
 import java.util.function.Function;
 
+// operating expense 
+
 public class CardOE extends Card {
 	private Function<Player, Integer> getPrice;
 	private Integer price;

@@ -1,3 +1,6 @@
+
+// option to buy
+
 public class CardOTB extends Card{
 	public int cost;
 	public Item item;

@@ -13,7 +13,7 @@ public class Player {
 	public int money;
 
 	public List<CardOTB> otbs;
-	public List<Effect> effects;
+	public Effect effects;
 	public List<Item> items;
 
 	public String lastHarvest;
@@ -27,7 +27,7 @@ public class Player {
 		addMoney(money);
 		this.color = color;
 		this.otbs = new ArrayList<>();
-		this.effects = new ArrayList<>();
+		this.effects = new Effect();
 		this.items = new ArrayList<>();
 	}
 
@@ -73,7 +73,10 @@ public class Player {
 		}
 		return totalCows;
 	}
-	public int totalCrop(Crop crop){
+	public int acreage(){
+		return acreage(Crop.hay)+acreage(Crop.grain)+acreage(Crop.fruit);
+	}
+	public int acreage(Crop crop){
 		if (crop == Crop.livestock){
 			return totalCows();
 		}
@@ -84,9 +87,6 @@ public class Player {
 					totalCrop += cropAcre.acreage;
 				}
 			}
-		}
-		if (crop == Crop.grain && effects.contains(Effect.doubleGrain) || crop == Crop.hay && effects.contains(Effect.doubleHay)){
-			totalCrop *= 2;
 		}
 		return totalCrop;
 	}
@@ -106,8 +106,12 @@ public class Player {
 	public void drawFF(){
 		game.deck.drawFF().apply(this);
 	}
-	public void setPosition(int position, boolean kind){
-		
+	public void moveTo(int position, boolean forward){
+		position = position%49;
+		if (forward && position < this.position){
+			addMoney(5000);
+			effects = new Effect();
+		}
 		this.position = position;
 		game.board.board[position].apply(this);
 	}

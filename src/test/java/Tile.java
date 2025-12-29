@@ -34,7 +34,9 @@ public class Tile {
 			if (crop == null){
 				
 			} else {
-				player.addMoney((int)(coefficient * Harvests.getProfit(crop, Game.roll(), player.totalCrop(crop))));
+				if (!player.effects.garnished)
+					player.addMoney((int)(coefficient * Harvests.getProfit(crop, Game.roll(), player.acreage(crop))));
+				player.game.deck.drawOE().apply(player);
 			}
 		}
 		if (action == null){

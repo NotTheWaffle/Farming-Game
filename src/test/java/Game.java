@@ -1,35 +1,28 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Game {
-	public Input input = new Input();
-	public Output output = new Output();
+	public Input input;
+	public Output output;
 	public Deck deck;
 	public Board board;
-	public Player[] players;
-	public List<String> colors;
-	public int playerCount;
+	public List<Player> players;
 	public int turn;
 
-	public Game(){
+	public Game(Input input, Output output){
+		this.input = input;
+		this.output = output;
+		this.players = new ArrayList<>();
 		this.deck = new Deck();
-		this.colors = new ArrayList<>();
-		this.playerCount = 0;
 		this.turn = -1;
 	}
 	public void addPlayer(String color){
-		colors.add(color);
-		playerCount++;
+		players.add(new Player(this, 0, color));
 	}
 	public void start(){
-		players = new Player[playerCount];
-		for (int i = 0; i < playerCount; i++){
-			players[i] = new Player(this, 0, colors.get(i));
-		}
 		System.out.println("Roll to determine turn order");
 		int max = 0;
-		for (int i = 0; i < playerCount; i++){
+		for (int i = 0; i < players.size(); i++){
 			int roll = input.roll();
 			if (roll > max){
 				turn = i;
@@ -37,20 +30,20 @@ public class Game {
 			}
 			System.out.println("Player "+(i+1)+" rolled a "+roll);
 		}
-		for (int i = 0; i < playerCount; i++){
-			players[i].drawOTB();
-			players[i].drawOTB();
-			System.out.println(players[i]);
+		for (int i = 0; i < players.size(); i++){
+			players.get(i).drawOTB();
+			players.get(i).drawOTB();
+			System.out.println(players.get(i));
 		}
 	}
 	
 	public void playTurn(){
 		output.display("Player "+(turn+1)+"\'s turn");
-		Player player = players[turn];
+		Player player = players.get(turn);
 		int roll = input.roll();
 		
 		output.display(player.color+" player rolled a "+roll);
-		player.setPosition(player.position+roll);//kind
+		player.moveTo(player.position+roll,true);
 	}
 	public static int roll(){
 		return (int)(Math.random()*6)+1;
@@ -59,7 +52,7 @@ public class Game {
 	@Override
 	public String toString(){
 		StringBuilder output = new StringBuilder();
-		output.append(playerCount).append(" player game").append(Arrays.toString(players));
+		output.append(players.size()).append(" player game").append(players);
 		return output.toString();
 	}
 }

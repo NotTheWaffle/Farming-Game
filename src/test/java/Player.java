@@ -54,10 +54,8 @@ public class Player {
 				cash += 1000;
 				debt += 1000;
 			}
-			if (debt > 50_000){
-				System.out.println("die die die");
-			}
 		}
+		game.output.display(this);
 	}
 	public void subMoney(int amt){
 		addMoney(-amt);
@@ -90,10 +88,6 @@ public class Player {
 			}
 		}
 		return totalCrop;
-	}
-	
-	public boolean has(Item item){
-		return items.contains(item);
 	}
 	
 	public void drawOTB(){

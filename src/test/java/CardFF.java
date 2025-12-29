@@ -10,6 +10,7 @@ public class CardFF extends Card{
 		this.action = apply;
 	}
 	public void apply(Player player){
+		player.game.output.display(this);
 		action.accept(player);
 		player.game.deck.insertFF(this);
 	}

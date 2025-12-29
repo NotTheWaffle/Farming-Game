@@ -71,9 +71,9 @@ public class Deck {
 		deckFF.add(new CardFF("Cut worms eat sprouting fishbuds. EPA bans control spray.\nPay $300 per Fruit acre",(player -> {player.subMoney(player.acreage(Crop.fruit)*300);})));
 		deckFF.add(new CardFF("The Apple Maggot Fly, cousin of the dreaded Medfly, is found in an insect trap in your orchard. Your orchard is quaranteened and you lose lucrative export contract.\nPay $500 per Fruit acre.",(player -> player.subMoney(player.acreage(Crop.fruit)*500))));
 		deckFF.add(new CardFF("Truckers strike delays Fruit in transport, lots of spoilage.\nPay $1,000 per Fruit acre.",(player -> player.subMoney(player.acreage(Crop.fruit)*1000))));
-		deckFF.add(new CardFF("The President slaps on a Grain Embargo while you're waiting for the custom harvester to show up. Instant market collapse.\nPay $2,500 if you do not own your own Harvester",(player -> {if (!player.has(new Equipment("Harvester"))) player.subMoney(2500);})));
-		deckFF.add(new CardFF("Custom hire bill due.\nIf you have no Tractor pay $3,000.",(player -> {if (!player.has(new Equipment("Tractor"))) player.subMoney(3000);})));
-		deckFF.add(new CardFF("Custom hire bill due.\nIf you have no Tractor pay $3,000.",(player -> {if (!player.has(new Equipment("Tractor"))) player.subMoney(3000);})));
+		deckFF.add(new CardFF("The President slaps on a Grain Embargo while you're waiting for the custom harvester to show up. Instant market collapse.\nPay $2,500 if you do not own your own Harvester",(player -> {if (!player.effects.harvester) player.subMoney(2500);})));
+		deckFF.add(new CardFF("Custom hire bill due.\nIf you have no Tractor pay $3,000.",(player -> {if (!player.effects.tractor) player.subMoney(3000);})));
+		deckFF.add(new CardFF("Custom hire bill due.\nIf you have no Tractor pay $3,000.",(player -> {if (!player.effects.tractor) player.subMoney(3000);})));
 		deckFF.add(new CardFF("Income taxes due.\nPay $7,000.",(player -> {player.subMoney(7_000);})));
 		deckFF.add(new CardFF("Custom hire out with your Harvester.\nIf you have a Harvester, collect $2,000 from each player who has none.",(player -> {
 			if (player.effects.harvester){

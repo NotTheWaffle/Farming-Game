@@ -2,8 +2,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class Game {
-	public static final int[] cashDenominations = {50,100,500,1000,5000,10_000};
-	public static final int[] debtDenominations = {1000,5000,10_000};
 	public Input input;
 	public Output output;
 	public Deck deck;
@@ -52,7 +50,7 @@ public final class Game {
 		player.moveTo(player.position+roll,true);
 		turn = (turn+1)%players.size();
 	}
-	
+
 	public static int roll(){
 		return (int)(Math.random()*6)+1;
 	}

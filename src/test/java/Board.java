@@ -41,8 +41,8 @@ public class Board {
 		board[28] = new Tile("July",3,Crop.hay, "2nd Hay Cutting", "It's a cooker! 114 in the shade. Wipe your brow and go to Harvest Moon after getting Hay check.", (player) -> player.moveTo(36, true));
 		
 		board[29] = new Tile("July",4,Crop.grain, "Wheat Harvest", "85, wheat heads filling out beautifully. Add $50 per acre to your harvest check.", (player) -> player.addMoney(player.acreage(Crop.grain)*50));
-		board[30] = new Tile("August",1,Crop.grain, "Wheat Harvest", "You're right on time and farming like a pro. Go to the fourth week of February. Collect your years wage of $5000.", (player) -> {player.position = 0; player.addMoney(5000);});
-		board[31] = new Tile("August",2,Crop.grain, "Wheat Harvest", "Storm clouds brewing. Collect $1000, if you have a Harvester", (player) -> {if (player.has(new Equipment("Harvester"))) player.addMoney(1000);});
+		board[30] = new Tile("August",1,Crop.grain, "Wheat Harvest", "You're right on time and farming like a pro. Go to the fourth week of February. Collect your years wage of $5000.", (player) -> {player.moveTo(0,true);});
+		board[31] = new Tile("August",2,Crop.grain, "Wheat Harvest", "Storm clouds brewing. Collect $1000, if you have a Harvester", (player) -> {if (player.effects.harvester) player.addMoney(1000);});
 		board[32] = new Tile("August",3,Crop.grain, "Wheat Harvest", "Finish wheat harvest with no break downs. COLLECT $500.", 500);
 		board[33] = new Tile("August",4,Crop.grain, "Wheat Harvest", "Rain sprouts unharvested wheat. Cut price $50 per acre on harvest check.",null /*TODO*/);
 
@@ -51,7 +51,7 @@ public class Board {
 
 		board[36] = new Tile("Harvest Moon",0,Crop.livestock, "Livestock Sales","HARVEST MOON\nsmiles on you\nCOLLECT $500",500);
 		board[37] = new Tile("September",3,Crop.livestock, "Livestock Sales","Market collapses. Cut livestock check in half.",.5d);
-		board[38] = new Tile("September",4,Crop.livestock, "Livestock Sales","Codling Moth damage to apples lowers fruit grade. Pay $2000 if you own fruit.", (player) -> {if (player.acreage(Crop.fruit)>0) player.subMoney(2000);});
+		board[38] = new Tile("September",4,Crop.livestock, "Livestock Sales","Codling Moth damage to apples lowers fruit grade. Pay $2000 if you own fruit.", (player) -> {if (player.acreage(Crop.fruit) > 0) player.subMoney(2000);});
 		board[39] = new Tile("October",1,Crop.livestock, "Livestock Sales","Indian Summer. Collect $500",500);
 
 		board[40] = new Tile("October",2,Crop.hay,"4th Hay Cutting","Good Pheasant Hunting. Draw Farmer's Fate", drawFF);
@@ -62,7 +62,7 @@ public class Board {
 		board[44] = new Tile("November",2,Crop.fruit, "Apple Harvest","Good weather, harvest winding up. COLLECT $500", 500);
 		board[45] = new Tile("November",3,Crop.fruit, "Apple Harvest","Good weather holding. COLLECT $1000",1000);
 		
-		board[46] = new Tile("November",4,Crop.grain, "Corn Harvest","Early freeze kills fruit buds. PAY $1000 if you have fruit.", (player) -> {if (player.acreage(Crop.fruit)>0)player.subMoney(1000);});
+		board[46] = new Tile("November",4,Crop.grain, "Corn Harvest","Early freeze kills fruit buds. PAY $1000 if you have fruit.", (player) -> {if (player.acreage(Crop.fruit) > 0)player.subMoney(1000);});
 		board[47] = new Tile("December",1,Crop.grain, "Corn Harvest", "Cold and dry, perfect Field Corn Harvesting. COLLECT $500.", 500);
 		board[48] = new Tile("December",2,Crop.grain, "Corn Harvest", "First Snow. Draw Farmer's Fate.", drawFF);
 		return board;

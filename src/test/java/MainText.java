@@ -11,7 +11,7 @@ public class MainText {
 					while (value < 0 || value > max){
 						System.out.println("0-"+max);
 						String line = scan.nextLine();
-						try {value = Integer.parseInt(line);}catch(Exception e){}
+						try {value = Integer.parseInt(line);}catch(Exception _){}
 					}
 					scan.close();
 					return value;

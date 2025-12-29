@@ -14,29 +14,29 @@ public class CardOTB extends Card{
 			return;
 		}
 		player.subMoney(cost);
-		if (item instanceof Equipment equipment){
-			// set the effect flags when purchasing a harvester or tractor
-			if (equipment.type.equals("Harvester")){
-				player.effects.harvester = true;
-			} else if (equipment.type.equals("Tractor")){
-				player.effects.tractor = true;
-			} else {
-				System.out.println("ABD ABD BABD");
+		switch (item) {
+			case Equipment equipment -> {
+				// set the effect flags when purchasing a harvester or tractor
+				switch (equipment.type) {
+					case "Harvester" -> player.effects.harvester = true;
+					case "Tractor" -> player.effects.tractor = true;
+					default -> System.out.println("bad");
+				}
 			}
-		} else if (item instanceof Ridge ridge){
-			// remove duplicate ridge otbs
-			player.game.deck.remove(this);
-			for (Player eachPlayer : player.game.players){
-				eachPlayer.otbs.remove(this);
+			case Ridge _ -> {
+				// remove duplicate ridge otbs
+				player.game.deck.remove(this);
+				for (Player eachPlayer : player.game.players){
+					eachPlayer.otbs.remove(this);
+				}
 			}
+			default -> {}
 		}
 		player.items.add(item);
 		player.otbs.remove(this);
 		player.game.deck.insertOTB(this);
 	}
-	public String getText(){
-		return text;
-	}
+	@Override
 	public String toString(){
 		return "Option to buy "+item+" for $"+cost;
 	}

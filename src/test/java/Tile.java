@@ -36,7 +36,7 @@ public class Tile {
 		this(season, week, crop, cropName, text, (player) -> player.addMoney(money));
 	}
 	public void apply(Player player){
-		if (cropName == null || !player.lastHarvest.equals(cropName)){
+		if (crop == null || player.lastHarvest == null || !player.lastHarvest.equals(cropName)){
 			if (crop == null){
 				for (CardOTB cardOTB : player.otbs){
 					player.game.output.display(cardOTB);
@@ -50,6 +50,7 @@ public class Tile {
 					player.addMoney((int)(coefficient * Harvests.getProfit(crop, Game.roll(), player.acreage(crop))));
 				player.game.deck.drawOE().apply(player);
 			}
+			player.lastHarvest = cropName;
 		}
 		if (action == null){
 			return;

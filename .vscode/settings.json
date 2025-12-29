@@ -26,5 +26,6 @@
     "java.completion.importOrder": [],
 
     // 4. Disables the Java formatter so it doesn't move your code around
-    "java.format.enabled": false
+    "java.format.enabled": false,
+    "java.debug.settings.onBuildFailureProceed": true
 }

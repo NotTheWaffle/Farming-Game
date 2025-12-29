@@ -1,10 +1,23 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import javax.imageio.ImageIO;
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class Main extends JPanel implements ActionListener {
 
@@ -35,7 +48,6 @@ public class Main extends JPanel implements ActionListener {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() < keys.length) keys[e.getKeyCode()] = true;
-                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) System.exit(0);
             }
 
             @Override
@@ -98,7 +110,7 @@ public class Main extends JPanel implements ActionListener {
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Farming Game (Swing)");
+        JFrame frame = new JFrame("Farming Game");
         Main gamePanel = new Main();
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

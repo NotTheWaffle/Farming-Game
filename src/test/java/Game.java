@@ -4,6 +4,7 @@ import java.util.List;
 public final class Game {
 	public Input input;
 	public Output output;
+	
 	public Deck deck;
 	public List<Player> players;
 	public int turn;
@@ -15,6 +16,12 @@ public final class Game {
 		this.players = new ArrayList<>();
 		this.deck = new Deck();
 		this.turn = -1;
+	}
+	public void update(Input input){
+		this.input = input;
+	}
+	public void update(Output output){
+		this.output = output;
 	}
 	public void addPlayer(String color){
 		System.out.println("added"+color);

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public final class Player {
 	public Game game;
 	public String color;
 
@@ -9,7 +9,7 @@ public class Player {
 
 	public int cash;
 	public int debt;
-
+	public List<Bill> bills;
 	public int money;
 
 	public List<CardOTB> otbs;
@@ -19,7 +19,7 @@ public class Player {
 	public String lastHarvest;
 
 	public Player(){
-		this(null,0,"Colorless");
+		this(null, 0, "Colorless");
 	}
 	public Player(Game game, int money, String color){
 		this.game = game;
@@ -45,14 +45,14 @@ public class Player {
 	}
 	public void addMoney(int amt){
 		money += amt;
-		if (money > 0){
-			cash = money;
-			debt = 0;
-		} else {
-			cash = money;
-			while (cash < 0){
-				cash += 1000;
-				debt += 1000;
+		bills = Bill.split(money);
+		cash = 0;
+		debt = 0;
+		for (Bill bill : bills){
+			if (bill.cash){
+				cash += Bill.cashDenominations[bill.index];
+			} else {
+				debt -= Bill.debtDenominations[bill.index];
 			}
 		}
 		game.output.display(this);
@@ -64,12 +64,12 @@ public class Player {
 	public int totalCows(){
 		int totalCows = 0;
 		for (Item item : items){
-			if (item instanceof Ridge ridge){
-				totalCows += ridge.capacity;
-			} else if (item instanceof CropAcre cropAcre){
-				if (cropAcre.type == Crop.livestock){
-					totalCows += cropAcre.acreage;
+			switch (item) {
+				case Ridge ridge -> totalCows += ridge.capacity;
+				case CropAcre cropAcre -> {
+					if (cropAcre.type == Crop.livestock) totalCows += cropAcre.acreage;
 				}
+				default -> {}
 			}
 		}
 		return totalCows;
@@ -91,11 +91,13 @@ public class Player {
 	}
 	
 	public void drawOTB(){
-		otbs.add(game.deck.drawOTB());
+		if (otbs.size() < 5)
+			otbs.add(game.deck.drawOTB());
 	}
 	public void drawFF(){
 		game.deck.drawFF().apply(this);
 	}
+	
 	public void moveTo(int position, boolean forward){
 		position = position%49;
 		if (forward && position < this.position){
@@ -107,6 +109,7 @@ public class Player {
 		Board.tiles[position].apply(this);
 	}
 	
+	@Override
 	public String toString(){
 		return color+" player: "+getMoneyString();
 	}

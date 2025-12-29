@@ -19,6 +19,9 @@ public class Board {
 		board[14] = new Tile("SPRING PLANTING\nPlant corn on time. Double Grain yield this year", (player) -> player.effects.add(Effect.doubleGrain));
 		board[15] = new Tile("More rain. Field work shut down. PAY $500", -500);
 		board[16] = new Tile("Equipment breakdown. PAY $1000", -1000);
-		board[17] = new Tile(null, null);
+		board[17] = new Tile("The whole Valley is green. COLLECT $500",500);
+		board[18] = new Tile("Windstorm makes you replant CORN. PAY $500",-500);
+		board[19] = new Tile("Cut your hay just right. COLLECT $1000 bonus.",1000);
+		board[20] = new Tile("Memorial Day weekend. Draw O.T.B.",(player) -> player.drawOTB());
 	}
 }

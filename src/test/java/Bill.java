@@ -44,6 +44,7 @@ public class Bill {
 		}
 		return debtDenominations[index];
 	}
+	@Override
 	public String toString(){
 		return ""+getValue();
 	}

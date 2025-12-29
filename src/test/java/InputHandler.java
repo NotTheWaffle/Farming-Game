@@ -9,11 +9,13 @@ public class InputHandler {
 	public final Queue<ComponentEvent> unhandled;
 	public final Game game;
 	public final GamePanel gamePanel;
+	public final Window window;
 	public int mouseX;
 	public int mouseY;
 	public int mouseDown;
 
-	public InputHandler(Game game, GamePanel gamePanel){
+	public InputHandler(Window window, Game game, GamePanel gamePanel){
+		this.window = window;
 		this.game = game;
 		this.gamePanel = gamePanel;
 		this.unhandled = new LinkedList<>();
@@ -65,6 +67,7 @@ public class InputHandler {
 					//lost focus
 				}
 			}
+			window.render();
 		}
 	}
 	

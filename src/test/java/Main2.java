@@ -1,18 +1,11 @@
 import java.util.Scanner;
 
+@SuppressWarnings("override")
 public class Main2 {
 	public static void main(String[] args) {
 		Game game = new Game(null, null);
 		Window window = new Window(game, 1600, 1000);
-		game.update(new Output() {
-			public void display(Tile tile){update();}
-			public void display(Card card){update();}
-			public void display(String string){update();}
-			public void display(int roll){update();}
-			public void display(Player player){update();}
-			public void update(){window.render();}
-		});
-		game.update(new Input() {
+		Input swingInput = new Input() {
 			public final Scanner scan = new Scanner(System.in);
 			public int roll(){return Game.roll();}
 			public int choice(int max){
@@ -20,12 +13,21 @@ public class Main2 {
 				while (value < 0 || value > max){
 					System.out.println("0-"+max);
 					String line = scan.nextLine();
-					try {value = Integer.parseInt(line);}catch(Exception _){}
+					try {value=Integer.parseInt(line);}catch(Exception _){}
 				}
 				return value;
 			}
 			public String toString(){return "Text input";}
-		});
+		};
+		Output swingOutput = new Output() {
+			public void display(Tile tile){update();}
+			public void display(Card card){update();}
+			public void display(String string){update();}
+			public void display(int roll){update();}
+			public void display(Player player){update();}
+			public void update(){window.render();}
+		};
+		game.update(swingInput, swingOutput);
 		game.addPlayer("red");
 		game.addPlayer("blue");
 		game.start();
@@ -35,7 +37,6 @@ public class Main2 {
 		game.players.get(0).drawOTB();
 		while (true) {
 			window.input.handle();
-			window.render();
 			try {Thread.sleep(16);} catch (Exception _){};
 		}
 	}

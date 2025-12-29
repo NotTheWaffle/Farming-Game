@@ -15,6 +15,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +24,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-public class GamePanel extends JPanel implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener, FocusListener{
+public final class GamePanel extends JPanel implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener, FocusListener{
 
 	private final Game game;
 
@@ -61,6 +62,8 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
 		if (game.turn < 0 || game.turn >= game.players.size()){
 			return;
 		}
+		g2d.setColor(Color.black);
+		g2d.fillRect(0, 0, g2d.getClipBounds().width, g2d.getClipBounds().height);
 		Player player = game.players.get(game.turn);
 		renderPlayer(g2d, player);
 		AffineTransform at = new AffineTransform();
@@ -68,9 +71,9 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
 
 		at.scale(.9,.9);
 		g2d.drawImage(spriteMap.get(Sprite.board),at,null);
-		g2d.drawRect(0, 0, 400, 400);
 	}
 	private void renderPlayer(Graphics2D g2d, Player player){
+		g2d.setColor(Color.cyan);
 		renderString(g2d, "Options to Buy", 0, 750, 40, 500);
 		g2d.setColor(Color.lightGray);
 		g2d.drawRect(0, 800, 500, 200);
@@ -90,39 +93,47 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
 	}
 	private void renderCard(Graphics2D g2d, Card card, int x, int y){
 		int cardWidth = 320;
-		g2d.setColor(Color.cyan);
-		g2d.fillRect(x,y,cardWidth,200);
 		g2d.setColor(Color.black);
+		g2d.fillRect(x,y,cardWidth,200);
+		g2d.setColor(Color.cyan);
 		g2d.setStroke(new BasicStroke(4));
 		g2d.drawRect(x,y,cardWidth,200);
+		
 		renderString(g2d, card.getText(), x, y+20, 20, cardWidth);
 	}
-	private void renderString(Graphics2D g2d, String str, int x, int y, int fontHeight, int width){
-		g2d.setFont(new Font("Monospaced",Font.BOLD,fontHeight));
+	private void renderString(Graphics2D g2d, String str, int x, int y, int charHeight, int width){
+		g2d.setFont(new Font("Monospaced",Font.BOLD,charHeight));
 		List<String> lines = new ArrayList<>();
 		lines.addAll(List.of(str.split("\n")));
-		int fontWidth = (fontHeight*3/5);
-		int maxLength = width/fontWidth;
-		y+=fontHeight;
+		int charWidth = (charHeight*3/5);
+		int maxChars = width/charWidth;
+		y+=charHeight;
 		for (int lineNum = 0; lineNum < lines.size(); lineNum++){
 			String line = lines.get(lineNum);
-			if (line.length() > maxLength) {
-				for (int ch = maxLength; ch > 0; ch--){
+			if (line.length() > maxChars) {
+				for (int ch = maxChars; ch > 0; ch--){
 					if (line.charAt(ch) == ' '){
 						lines.add(lineNum+1,line.substring(ch+1));
 						line = line.substring(0,ch);
 					}
 				}
 			}
-			g2d.drawString(line, x+(maxLength-line.length())*(fontWidth)/2, y);
+			g2d.drawString(line, x+(maxChars-line.length())*(charWidth)/2, y);
 			y+=20;
 		}
 	}
 	public BufferedImage loadImage(String path) {
-		BufferedImage image = null;
-		System.out.println(path);
-		try {image = ImageIO.read(getClass().getResource(path));} catch (Exception e) {System.out.println(e);}
-		return image;
+		String resourcePath = "/" + path;
+
+		try (InputStream in = getClass().getResourceAsStream(resourcePath)) {
+			
+			BufferedImage image = ImageIO.read(in);
+			
+			return image;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override public void keyPressed	(KeyEvent e) {window.input.unhandled.add(e);}

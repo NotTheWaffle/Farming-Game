@@ -15,6 +15,9 @@ public class Window {
 		int width  = 8  + gameWidth  + 8;
 		int height = 31 + gameHeight + 8;
 
+		this.gamePanel = new GamePanel(gameWidth, gameHeight, this, game);
+		this.gamePanel.setBounds(0, 0, gameWidth, gameHeight);
+
 		this.frame = new JFrame("Farming Game");
 		this.frame.setBounds(0, 0, width, height);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -23,11 +26,9 @@ public class Window {
 		this.frame.setResizable(false);
 		
 
-		this.gamePanel = new GamePanel(gameWidth, gameHeight, this, game);
-		this.gamePanel.setBounds(0, 0, gameWidth, gameHeight);
 		this.frame.add(gamePanel);
 
-		this.input = new InputHandler(game,gamePanel);
+		this.input = new InputHandler(this,game,gamePanel);
 		
 		gamePanel.addMouseListener(gamePanel);
 		gamePanel.addMouseMotionListener(gamePanel);

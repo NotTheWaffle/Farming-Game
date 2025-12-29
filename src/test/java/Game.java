@@ -10,17 +10,14 @@ public final class Game {
 	public int turn;
 
 	public Game(Input input, Output output){
-		System.out.println("Making a game with "+input+" and "+output);
 		this.input = input;
 		this.output = output;
 		this.players = new ArrayList<>();
 		this.deck = new Deck();
 		this.turn = -1;
 	}
-	public void update(Input input){
+	public void update(Input input, Output output){
 		this.input = input;
-	}
-	public void update(Output output){
 		this.output = output;
 	}
 	public void addPlayer(String color){

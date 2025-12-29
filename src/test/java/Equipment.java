@@ -3,6 +3,11 @@ public class Equipment extends Item{
 	public Equipment(String type){
 		this.type = type;
 	}
+	@Override
+	public int hashCode(){
+		return type.hashCode()^67;
+	}
+	@Override
 	public boolean equals(Object o){
 		if (o == null || !(o instanceof Equipment)){
 			return false;
@@ -10,6 +15,7 @@ public class Equipment extends Item{
 		Equipment e = (Equipment) o;
 		return e.type.equals(type);
 	}
+	@Override
 	public String toString(){
 		return type;
 	}

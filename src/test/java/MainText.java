@@ -13,19 +13,24 @@ public class MainText {
 						value = scan.nextInt();
 						scan.nextLine();
 					}
+					scan.close();
 					return value;
 				}
+				public String toString(){return "Text input";}
 			},
 			new Output(){
 				public void display(Tile tile){System.out.println(tile.toString());}
 				public void display(Card card){System.out.println(card.toString());}
 				public void display(String string){System.out.println(string);}
 				public void display(int roll){System.out.println("Rolled a "+roll);}
+				public void display(Player player){System.out.println(player.toString());}
+				public String toString(){return "Text output";}
 			}
 		);
+		System.out.println("a");
 		game.addPlayer("Red");
 		game.addPlayer("Blue");
 		game.start();
-		
+		game.playTurn();
 	}
 }

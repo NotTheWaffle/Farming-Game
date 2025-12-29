@@ -10,4 +10,7 @@ public class Equipment extends Item{
 		Equipment e = (Equipment) o;
 		return e.type.equals(type);
 	}
+	public String toString(){
+		return type;
+	}
 }

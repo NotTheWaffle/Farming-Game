@@ -12,4 +12,7 @@ public class Ridge extends Item{
 		Ridge r = (Ridge) o;
 		return r.name.equals(this.name) && r.capacity == this.capacity;
 	}
+	public String toString(){
+		return name+" ("+capacity+" livestock)";
+	}
 }

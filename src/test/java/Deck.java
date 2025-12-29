@@ -8,8 +8,18 @@ public class Deck {
 
 	public Deck(){
 		initDeckOTB();
+		shuffle(deckOTB);
 		initDeckFF();
+		shuffle(deckFF);
 		initDeckOE();
+		shuffle(deckOE);
+	}
+	private <E> void shuffle(List<E> list){
+		List<E> list2 = new ArrayList<>();
+		while (!list.isEmpty()){
+			list2.add(list.remove((int)(list.size()*Math.random())));
+		}
+		list.addAll(list2);
 	}
 	private void initDeckOTB(){
 		deckOTB = new ArrayList<>();

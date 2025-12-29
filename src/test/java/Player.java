@@ -113,6 +113,7 @@ public class Player {
 			effects = new Effect();
 		}
 		this.position = position;
+		game.output.display(game.board.board[position]);
 		game.board.board[position].apply(this);
 	}
 	

@@ -6,28 +6,34 @@ public class Tile {
 	private final Crop crop;
 	private final String cropName;
 	private final double coefficient;
-	public Tile(String text, Consumer<Player> action){
-		this(null, null, text, action);
+	private final String month;
+	private final int week;
+	public Tile(String season, int week, String text, Consumer<Player> action){
+		this(season, week, null, null, text, action);
 	}
-	public Tile(String text, int money){
-		this(text, (player) -> player.addMoney(money));
+	public Tile(String season, int week, String text, int money){
+		this(season, week, text, (player) -> player.addMoney(money));
 	}
-	public Tile(Crop crop, String cropName, String text, double harvestCoefficient){
+	public Tile(String season, int week, Crop crop, String cropName, String text, double harvestCoefficient){
+		this.month = season;
+		this.week = week;
 		this.text = text;
 		this.action = null;
 		this.crop = crop;
 		this.cropName = cropName;
 		coefficient = harvestCoefficient;
 	}
-	public Tile(Crop crop, String cropName, String text, Consumer<Player> action){
+	public Tile(String season, int week, Crop crop, String cropName, String text, Consumer<Player> action){
+		this.month = season;
+		this.week = week;
 		this.text = text;
 		this.action = action;
 		this.crop = crop;
 		this.cropName = cropName;
 		coefficient = 1;
 	}
-	public Tile(Crop crop, String cropName, String text, int money){
-		this(crop, cropName, text, (player) -> player.addMoney(money));
+	public Tile(String season, int week, Crop crop, String cropName, String text, int money){
+		this(season, week, crop, cropName, text, (player) -> player.addMoney(money));
 	}
 	public void apply(Player player){
 		if (cropName == null || !player.lastHarvest.equals(cropName)){
@@ -43,5 +49,8 @@ public class Tile {
 			return;
 		}
 		action.accept(player);
+	}
+	public String toString(){
+		return text;
 	}
 }

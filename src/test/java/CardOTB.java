@@ -17,6 +17,6 @@ public class CardOTB extends Card{
 		return text;
 	}
 	public String toString(){
-		return "Option to buy "+item+" for "+cost;
+		return "Option to buy "+item+" for $"+cost;
 	}
 }

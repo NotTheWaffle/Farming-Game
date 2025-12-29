@@ -16,6 +16,8 @@ public class Player {
 	public List<Effect> effects;
 	public List<Item> items;
 
+	public String lastHarvest;
+
 	public Player(){
 		this(null,0,"Colorless");
 	}
@@ -57,6 +59,7 @@ public class Player {
 	public void subMoney(int amt){
 		addMoney(-amt);
 	}
+	
 	public int totalCows(){
 		int totalCows = 0;
 		for (Item item : items){
@@ -71,22 +74,43 @@ public class Player {
 		return totalCows;
 	}
 	public int totalCrop(Crop crop){
-		int totalFruit = 0;
+		if (crop == Crop.livestock){
+			return totalCows();
+		}
+		int totalCrop = 0;
 		for (Item item : items){
 			if (item instanceof CropAcre cropAcre){
 				if (cropAcre.type == crop){
-					totalFruit += cropAcre.acreage;
+					totalCrop += cropAcre.acreage;
 				}
 			}
 		}
-		return totalFruit;
+		if (crop == Crop.grain && effects.contains(Effect.doubleGrain) || crop == Crop.hay && effects.contains(Effect.doubleHay)){
+			totalCrop *= 2;
+		}
+		return totalCrop;
 	}
+	
+	public boolean has(Item item){
+		for (Item token : items){
+			if (token.equals(item)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void drawOTB(){
 		this.otbs.add(game.deck.drawOTB());
 	}
 	public void drawFF(){
 		game.deck.drawFF().apply(this);
 	}
+	public void setPosition(int position){
+		this.position = position;
+		game.board.board[position].apply(this);
+	}
+	
 	public String toString(){
 		return color+" player: "+getMoneyString()+"\n Items:"+items+"\n OTBs :"+otbs;
 	}

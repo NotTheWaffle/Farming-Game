@@ -44,13 +44,7 @@ public class Game {
 	
 	public void playTurn(){
 		System.out.println("Player "+(turn+1)+"\'s turn");
-		System.out.println("Purchase OTB's?");
 		Player player = players[turn];
-		System.out.println(" 0. Do nothing");
-		for (int i = 0; i < player.otbs.size(); i++){
-			System.out.println(" "+(i+1)+". "+player.otbs.get(i));
-		}
-		int action = 0;//TODO get the action
 		int roll = roll();
 		System.out.println(player.color+" player rolled a "+roll);
 		player.position += roll;

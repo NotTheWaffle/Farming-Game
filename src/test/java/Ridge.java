@@ -5,4 +5,11 @@ public class Ridge extends Item{
 		this.name = name;
 		this.capacity = capacity;
 	}
+	public boolean equals(Object o){
+		if (o == null || !(o instanceof Ridge)){
+			return false;
+		}
+		Ridge r = (Ridge) o;
+		return r.name.equals(this.name) && r.capacity == this.capacity;
+	}
 }

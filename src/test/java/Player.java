@@ -97,7 +97,7 @@ public class Player {
 	}
 	
 	public void drawOTB(){
-		this.otbs.add(game.deck.drawOTB());
+		otbs.add(game.deck.drawOTB());
 	}
 	public void drawFF(){
 		game.deck.drawFF().apply(this);
@@ -106,7 +106,7 @@ public class Player {
 		position = position%49;
 		if (forward && position < this.position){
 			addMoney(5000);
-			effects = new Effect();
+			effects.reset();
 		}
 		this.position = position;
 		game.output.display(Board.tiles[position]);

@@ -22,5 +22,6 @@ public class CardOE extends Card {
 		} else {
 			player.subMoney(price);
 		}
+		player.game.deck.insertOE(this);
 	}
 }

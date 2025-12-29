@@ -21,7 +21,7 @@ public class Board {
 		board[11] = new Tile("March",3,"Hurt your back. Go back to the second week of January.", (player) -> player.moveTo(2,false));
 		board[12] = new Tile("March",4,"Frost orces you to heat fruit. PAY $2000 if you own fruit.", (player) -> {if (player.acreage(Crop.fruit)>0) player.subMoney(2000);});
 		board[13] = new Tile("April",1,"Done plowing. Take a day off. Draw O.T.B.", drawOTB);
-		board[14] = new Tile("April",2,"SPRING PLANTING\nPlant corn on time. Double Grain yield this year", (player) -> player.effects.doubleGrain = true);
+		board[14] = new Tile("April",2,"SPRING PLANTING\nPlant corn on time. Double Corn yield this year", (player) -> player.effects.doubleCorn = true);
 		board[15] = new Tile("April",3,"More rain. Field work shut down. PAY $500", -500);
 		board[16] = new Tile("April",4,"Equipment breakdown. PAY $1000", -1000);
 		board[17] = new Tile("May",1,"The whole Valley is green. COLLECT $500", 500);

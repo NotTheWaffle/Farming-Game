@@ -43,7 +43,7 @@ public class Tile {
 				}
 				int choice = player.game.input.choice(player.otbs.size());
 				if (choice > 0){
-					
+					player.otbs.get(choice-1).apply(player);
 				}
 			} else {
 				if (!player.effects.garnished)

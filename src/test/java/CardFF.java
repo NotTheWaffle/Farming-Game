@@ -11,5 +11,6 @@ public class CardFF extends Card{
 	}
 	public void apply(Player player){
 		action.accept(player);
+		player.game.deck.insertFF(this);
 	}
 }

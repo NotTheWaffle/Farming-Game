@@ -31,7 +31,7 @@ public final class Game {
 		players.add(new Player(this, 0, color));
 	}
 	public void start(){
-		output.display("Roll to determine turn order");
+		System.out.println("Roll to determine order");
 		int max = 0;
 		for (int i = 0; i < players.size(); i++){
 			int roll = input.roll();
@@ -39,21 +39,20 @@ public final class Game {
 				turn = i;
 				max = roll;
 			}
-			output.display(players.get(i));
-			output.display(roll);
+			System.out.println("player "+(i+1)+" rolled a "+roll);
 		}
 		for (int i = 0; i < players.size(); i++){
 			players.get(i).drawOTB();
 			players.get(i).drawOTB();
-			output.display(players.get(i));
+			System.out.println(players.get(i).toString());
 		}
 	}
 	
 	public void playTurn(){
+		System.out.println("Player "+(turn+1)+"'s turn");
 		Player player = players.get(turn);
 		output.display(player);
 		int roll = input.roll();
-		output.display(roll);
 		player.moveTo(player.position+roll,true);
 		turn = (turn+1)%players.size();
 	}

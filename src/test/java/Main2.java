@@ -29,6 +29,14 @@ public class Main2 {
 		game.addPlayer("red");
 		game.addPlayer("blue");
 		game.start();
-		game.playTurn();
+		game.players.get(0).drawOTB();
+		game.players.get(0).drawOTB();
+		game.players.get(0).drawOTB();
+		game.players.get(0).drawOTB();
+		while (true) {
+			window.input.handle();
+			window.render();
+			try {Thread.sleep(16);} catch (Exception _){};
+		}
 	}
 }

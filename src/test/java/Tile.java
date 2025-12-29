@@ -57,6 +57,7 @@ public class Tile {
 		}
 		action.accept(player);
 	}
+	@Override
 	public String toString(){
 		StringBuilder str = new StringBuilder();
 		if (week > 0){

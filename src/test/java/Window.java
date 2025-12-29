@@ -11,7 +11,6 @@ public class Window {
 
 
 	public Window(Game game, int gameWidth, int gameHeight){
-		this.input = new InputHandler(game);
 
 		int width  = 8  + gameWidth  + 8;
 		int height = 31 + gameHeight + 8;
@@ -27,6 +26,8 @@ public class Window {
 		this.gamePanel = new GamePanel(gameWidth, gameHeight, this, game);
 		this.gamePanel.setBounds(0, 0, gameWidth, gameHeight);
 		this.frame.add(gamePanel);
+
+		this.input = new InputHandler(game,gamePanel);
 		
 		gamePanel.addMouseListener(gamePanel);
 		gamePanel.addMouseMotionListener(gamePanel);

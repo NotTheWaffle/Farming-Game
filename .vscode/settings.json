@@ -5,5 +5,26 @@
         "lwjgl",
         "opengl",
         "vidmode"
-    ]
+    ],
+
+    // 1. Stops the editor from running any import cleanup on save
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "never" 
+    },
+    "java.saveActions.organizeImports": false,
+    "editor.formatOnSave": false,
+
+    // 2. Silences all "Unused" and "Redundant" import warnings/hints
+    "java.lint.unusedImport": "ignore",
+    "java.compiler.problem.unusedImport": "ignore",
+    "java.compiler.problem.staticImportSelected": "ignore",
+    "java.errors.incompleteClasspath.severity": "ignore",
+
+    // 3. Prevents specific imports from being combined into * (and vice versa)
+    "java.sources.organizeImports.starThreshold": 99,
+    "java.sources.organizeImports.staticStarThreshold": 99,
+    "java.completion.importOrder": [],
+
+    // 4. Disables the Java formatter so it doesn't move your code around
+    "java.format.enabled": false
 }

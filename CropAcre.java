@@ -5,4 +5,7 @@ public class CropAcre extends Item{
 		this.type = type;
 		this.acreage = acreage;
 	}
+	public String toString(){
+		return acreage+" "+type+"s";
+	}
 }

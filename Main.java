@@ -1,6 +1,9 @@
 public class Main {
 	public static void main(String[] args) {
-		Player player = new Player();
-		System.out.println(player.money);
+		Game game = new Game();
+		game.addPlayer("Red");
+		game.addPlayer("Stupid");
+		game.start();
+		game.playTurn();
 	}
 }

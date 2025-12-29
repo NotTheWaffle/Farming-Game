@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Deck {
-	private ArrayList<Card> otbDeck;
-	private ArrayList<Card> ffDeck;
-	private ArrayList<Card> oeDeck;
+	private List<CardOTB> otbDeck;
+	private List<CardFF> ffDeck;
+	private List<CardOE> oeDeck;
 
 	public Deck(){
 		initotbDeck();
@@ -56,6 +57,7 @@ public class Deck {
 		
 	}
 	private final void initffDeck(){
+		ffDeck = new ArrayList<>();
 		ffDeck.add(new CardFF("Cut worms eat sprouting fishbuds. EPA bans control spray.\nPay $300 per Fruit acre",(player -> {
 			int fruitAcreage = 0;
 			for (Item item : player.items){
@@ -193,6 +195,7 @@ public class Deck {
 		})));
 	}
 	private final void initoeDeck(){
+		oeDeck = new ArrayList<>();
 		oeDeck.add(new CardOE("Pay your Fruit Pickers $400 per Fruit acre.",(player)->{
 			int fruitAcreage = 0;
 			for (Item item : player.items){
@@ -248,5 +251,14 @@ public class Deck {
 		}));
 
 		
+	}
+	public CardOTB drawOTB(){
+		return otbDeck.remove(0);
+	}
+	public CardOE drawOE(){
+		return oeDeck.remove(0);
+	}
+	public CardFF drawFF(){
+		return ffDeck.remove(0);
 	}
 }

@@ -13,4 +13,10 @@ public class CardOTB extends Card{
 		player.subMoney(cost);
 		player.items.add(item);
 	}
+	public String getText(){
+		return text;
+	}
+	public String toString(){
+		return "Option to buy "+item+" for "+cost;
+	}
 }

@@ -23,7 +23,7 @@ public class Player {
 	}
 	public Player(Game game, int money, String color){
 		this.game = game;
-		this.cash = 0;
+		this.money = 0;
 		addMoney(money);
 		this.color = color;
 		this.otbs = new ArrayList<>();
@@ -54,6 +54,9 @@ public class Player {
 				cash += 1000;
 				debt += 1000;
 			}
+			if (debt > 50_000){
+				System.out.println("die die die");
+			}
 		}
 	}
 	public void subMoney(int amt){
@@ -82,22 +85,15 @@ public class Player {
 		}
 		int totalCrop = 0;
 		for (Item item : items){
-			if (item instanceof CropAcre cropAcre){
-				if (cropAcre.type == crop){
-					totalCrop += cropAcre.acreage;
-				}
+			if (item instanceof CropAcre cropAcre && cropAcre.type == crop){
+				totalCrop += cropAcre.acreage;
 			}
 		}
 		return totalCrop;
 	}
 	
 	public boolean has(Item item){
-		for (Item token : items){
-			if (token.equals(item)){
-				return true;
-			}
-		}
-		return false;
+		return items.contains(item);
 	}
 	
 	public void drawOTB(){
@@ -113,11 +109,11 @@ public class Player {
 			effects = new Effect();
 		}
 		this.position = position;
-		game.output.display(game.board.board[position]);
-		game.board.board[position].apply(this);
+		game.output.display(Board.tiles[position]);
+		Board.tiles[position].apply(this);
 	}
 	
 	public String toString(){
-		return color+" player: "+getMoneyString()+"\n Items:"+items+"\n OTBs :"+otbs;
+		return color+" player: "+getMoneyString();
 	}
 }

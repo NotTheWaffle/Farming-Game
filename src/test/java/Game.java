@@ -5,7 +5,6 @@ public class Game {
 	public Input input;
 	public Output output;
 	public Deck deck;
-	public Board board;
 	public List<Player> players;
 	public int turn;
 
@@ -15,7 +14,6 @@ public class Game {
 		this.output = output;
 		this.players = new ArrayList<>();
 		this.deck = new Deck();
-		this.board = new Board();
 		this.turn = -1;
 	}
 	public void addPlayer(String color){

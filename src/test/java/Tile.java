@@ -38,7 +38,13 @@ public class Tile {
 	public void apply(Player player){
 		if (cropName == null || !player.lastHarvest.equals(cropName)){
 			if (crop == null){
-				
+				for (CardOTB cardOTB : player.otbs){
+					player.game.output.display(cardOTB);
+				}
+				int choice = player.game.input.choice(player.otbs.size());
+				if (choice > 0){
+					
+				}
 			} else {
 				if (!player.effects.garnished)
 					player.addMoney((int)(coefficient * Harvests.getProfit(crop, Game.roll(), player.acreage(crop))));
@@ -51,6 +57,21 @@ public class Tile {
 		action.accept(player);
 	}
 	public String toString(){
-		return text;
+		StringBuilder str = new StringBuilder();
+		if (week > 0){
+			str.append(switch (week){
+				case 1 -> "1st";
+				case 2 -> "2nd";
+				case 3 -> "3rd";
+				case 4 -> "4th";
+				default -> "err";
+			}
+			);
+			str.append(" week of ");
+		}
+		str.append(month);
+		str.append('\n');
+		str.append(text);
+		return str.toString();
 	}
 }

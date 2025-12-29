@@ -1,4 +1,4 @@
-enum Effect{
+public enum Effect{
 	doubleHay,
 	doubleGrain,
 	halfHay,

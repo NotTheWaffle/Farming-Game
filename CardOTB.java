@@ -1,6 +1,6 @@
 public class CardOTB extends Card{
-	public int cost;
-	public Item item;
+	public final int cost;
+	public final Item item;
 	public CardOTB(){
 		this("",0,new Item());
 	}

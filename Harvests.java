@@ -1,4 +1,5 @@
-public class Harvests{
+public final class Harvests{
+	private Harvests(){}
 	public static int getProfit(Crop crop, int roll, int acres){
 		int[] profitPerAcre = switch (crop) {
 			case hay -> 		new int[] {40,	60,		100,	150,	220,	300	};
